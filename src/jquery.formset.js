@@ -133,9 +133,13 @@
           });
         }
         // Check if we need to show the add button:
-        if (buttonRow.is(":hidden") && showAddButton()) buttonRow.show();
+        if (buttonRow.is(":hidden") && showAddButton()) {
+          buttonRow.show();
+        }
         // If a post-delete callback was provided, call it with the deleted form:
-        if (options.removed) options.removed(row);
+        if (options.removed) {
+          options.removed(row);
+        }
         return false;
       });
     };
@@ -199,27 +203,14 @@
         insertDeleteLink(template);
       } else {
         // Otherwise, use the last form in the formset; this works much better if you've got
-        // extra (>= 1) forms (thnaks to justhamade for pointing this out):
+        // extra (>= 1) forms (thanks to justhamade for pointing this out):
         if (options.hideLastAddForm) {
           $("." + options.formCssClass + ":last").hide();
         }
         template = $("." + options.formCssClass + ":last")
           .clone(true)
           .removeAttr("id");
-        // Clear all cloned fields, except those the user wants to keep (thanks to brunogola for the suggestion):
-        template
-          .find(childElementSelector)
-          .not(options.keepFieldValues)
-          .each(function () {
-            var elem = $(this);
-            // If this is a checkbox or radiobutton, uncheck it.
-            // This fixes Issue 1, reported by Wilson.Andrew.J:
-            if (elem.is("input:checkbox") || elem.is("input:radio")) {
-              elem.attr("checked", false);
-            } else {
-              elem.val(""); // TODO: increase value automatically if numeric
-            }
-          });
+        // TODO: increase value automatically if numeric
       }
       // FIXME: Perhaps using $.data would be a better idea?
       options.formTemplate = template;
@@ -251,7 +242,9 @@
         addButton = $$.filter(":last").next();
       }
 
-      if (hideAddButton) addButton.hide();
+      if (hideAddButton) {
+        addButton.hide();
+      }
 
       addButton.click(function () {
         var formCount = parseInt(totalForms.val());
@@ -281,9 +274,13 @@
           });
         }
         // Check if we've exceeded the maximum allowed number of forms:
-        if (!showAddButton()) buttonRow.hide();
+        if (!showAddButton()) {
+          buttonRow.hide();
+        }
         // If a post-add callback was supplied, call it with the added form:
-        if (options.added) options.added(row);
+        if (options.added) {
+          options.added(row);
+        }
         return false;
       });
     }
