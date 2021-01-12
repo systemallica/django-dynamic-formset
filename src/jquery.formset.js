@@ -267,6 +267,13 @@
         });
         visibleForms = visibleForms + 1;
         totalForms.val(formCount + 1);
+
+        // new item row number = number of visible inline forms
+        row.find(options.rowNumberCssClass).each(function () {
+          var elem = $(this);
+          elem.text(visibleForms.toString());
+        });
+
         // Check if we're above the minimum allowed number of forms -> show all delete link(s)
         if (showDeleteLinks()) {
           $("a." + delCssSelector).each(function () {
@@ -304,5 +311,6 @@
     added: null, // Function called each time a new form is added
     removed: null, // Function called each time a form is deleted
     hideLastAddForm: false, // When set to true, hide last empty add form (becomes visible when clicking on add button)
+    rowNumberCssClass: ".clonedField", // Container CSS class for the row number in the form
   };
 })(jQuery);
