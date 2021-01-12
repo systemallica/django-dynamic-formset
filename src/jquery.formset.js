@@ -210,9 +210,26 @@
         template = $("." + options.formCssClass + ":last")
           .clone(true)
           .removeAttr("id");
-        // TODO: increase value automatically if numeric
         // Remove error messages if they exist
         template.find(".has-text-danger").remove();
+        // Clear all cloned fields, except those the user wants to keep
+        template
+          .find(childElementSelector)
+          .not(options.keepFieldValues)
+          .each(function () {
+            var elem = $(this);
+            // If this is a checkbox or radiobutton, uncheck it.
+            if (elem.is("input:checkbox") || elem.is("input:radio")) {
+              elem.attr("checked", false);
+            } else if (elem.is("select")) {
+              elem.empty();
+            } else if (elem.is("input[type='number']")) {
+              // value of field "order" = 1 by default
+              elem.val("1");
+            } else {
+              elem.val(""); // TODO: increase value automatically if numeric
+            }
+          });
       }
       // FIXME: Perhaps using $.data would be a better idea?
       options.formTemplate = template;
