@@ -211,6 +211,8 @@
           .clone(true)
           .removeAttr("id");
         // TODO: increase value automatically if numeric
+        // Remove error messages if they exist
+        template.find(".has-text-danger").remove();
       }
       // FIXME: Perhaps using $.data would be a better idea?
       options.formTemplate = template;
